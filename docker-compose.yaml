@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  server: 
+    container_name: fortune_server
+    image: PhilipL/fortune_server
+    build: ./server
+    # deploy:
+    #   replicas: 5
+    ports:
+    - target: 5000
+      published: 5000
+      protocol: tcp
+    environment: 
+      DATABASE_URI: ${DATABASE_URI}
+  api:
+    container_name: fortune_api
+    image: PhilipL/fortune_api
+    build: ./fortune_api
+    # deploy:
+    #   replicas: 5
+  # nginx:
+  #   image: nginx:latest
+  #   ports:
+  #   - target: 80
+  #     published: 80
+  #     protocol: tcp
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
