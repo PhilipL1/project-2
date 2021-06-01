@@ -2,20 +2,28 @@ version: "3.8"
 services:
   server: 
     container_name: fortune_server
-    image: PhilipL/fortune_server
-    build: ./server
+    image: philipl1/fortune_server
+    build: ./service-1
     # deploy:
     #   replicas: 5
     ports:
-    - target: 5000
-      published: 5000
+    - target: 5000 #container 
+      published: 5000 #host 
       protocol: tcp
     environment: 
       DATABASE_URI: ${DATABASE_URI}
   api:
+    container_name: day_api
+    image: philipl1/day_api
+    build: ./service-3
+  api2: 
+    container_name: number_api
+    image: philipl1/number_api
+    build: ./service-2
+  api3: 
     container_name: fortune_api
-    image: PhilipL/fortune_api
-    build: ./fortune_api
+    image: philipl1/fortune_api
+    build: ./service-4
     # deploy:
     #   replicas: 5
   # nginx:

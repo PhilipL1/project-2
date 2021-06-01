@@ -1,6 +1,6 @@
 FROM python:latest
-WORKDIR /App
+WORKDIR /app
 COPY . .
-RUN pip install flask 
+RUN pip install -r requirements.txt
 EXPOSE 5000
 ENTRYPOINT ["python", "app.py"]
