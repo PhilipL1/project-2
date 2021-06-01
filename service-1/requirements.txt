@@ -5,3 +5,4 @@ pymysql
 flask_testing 
 pytest 
 requests_mock
+pytest-cov
