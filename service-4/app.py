@@ -18,9 +18,9 @@ def get_fortune(day, number):
     elif number <= 6:
         return f"On {day} you will recieve unlimited food, Love dat!"
     elif number <= 9:
-            return f"On {day} you will becomone a millionaire, lucky you!! "
+            return f"On {day} you will becomone a millionaire, lucky you!!"
     else :
-        return f" On {day} you will find nothing but peace & happiness"
+        return f"On {day} you will find nothing but peace & happiness"
 
 
 if __name__ == "__main__":
