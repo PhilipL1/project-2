@@ -12,27 +12,27 @@ services:
       protocol: tcp
     environment: 
       DATABASE_URI: ${DATABASE_URI}
-  api:
+  day_api:
     container_name: day_api
     image: philipl1/day_api
     build: ./service-3
-  api2: 
+  number_api: 
     container_name: number_api
     image: philipl1/number_api
     build: ./service-2
-  api3: 
+  fortune_api: 
     container_name: fortune_api
     image: philipl1/fortune_api
     build: ./service-4
     # deploy:
     #   replicas: 5
-  # nginx:
-  #   image: nginx:latest
-  #   ports:
-  #   - target: 80
-  #     published: 80
-  #     protocol: tcp
-  #   volumes:
-  #   - type: bind
-  #     source: ./nginx/nginx.conf
-  #     target: /etc/nginx/nginx.conf
+  nginx:
+    image: nginx:latest
+    ports:
+    - target: 80
+      published: 80
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
