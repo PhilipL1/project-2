@@ -32,8 +32,8 @@ pipeline{
                 sh "docker-compose up -d --build"
                 script{
                     if (env.rebuild == 'true'){
-                        sh 'pip3 install -r service-1/requirements.txt'
-                        sh 'python3 service-1/create.py'
+                        sh 'pip3 install -r ./service-1/requirements.txt'
+                        sh 'python3 ./service-1/create.py'
                         }
                     }    
             }
