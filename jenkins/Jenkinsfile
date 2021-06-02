@@ -1,0 +1,42 @@
+pipeline{
+    agent any
+    environment {
+        DATABASE_URI = credentials("DATABASE_URI")
+        SECRET_KEY = credentials("SECRET_KEY")
+        DOCKER_LOGIN = credentials("DOCKER_LOGIN")
+    }
+    stages{
+        stage('Test'){
+            steps{
+                sh "bash jenkins/test.sh"
+            }
+        }
+        stage('Setup Docker')
+        steps {
+            sh 'bash jenkins/setup-docker.sh'
+        }
+        stage('Build'){
+            steps{
+                sh "docker build -t philipl1/Fortune-app:latest ."
+            }
+        }
+        stage('Push'){
+            steps{
+                sh "docker push philipl1/Fortune-app:latest"
+            }
+        }
+        stage('Run'){
+            steps{
+                sh "docker run -d -p 80:5000 -e DATABASE_URI=$DATABASE_URI -e SECRET_KEY=$SECRET_KEY --name fortune-app philipl1/Fortune-app:latest"
+            }
+        }
+    }
+    post{
+        always {
+             // publish junit and cobertura reports
+             junit '**/*.xml'
+             cobertura coberturaReportFile: 'coverage.xml', failNoReports: false 
+        }
+       
+    }
+}
