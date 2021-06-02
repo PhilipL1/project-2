@@ -1,8 +1,7 @@
 pipeline{
     agent any
     environment {
-        DATABASE_URI = credentials("DATABASE_URI")
-        SECRET_KEY = credentials("SECRET_KEY")
+        DATABASE_URI = credentials("DATABASE_URI")  
         DOCKER_LOGIN = credentials("DOCKER_LOGIN")
         rebuild_db = "true" 
         install docker = "false"
@@ -20,21 +19,22 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh "docker build -t philipl1/Fortune-app:latest ."
+                sh "docker-compose build --parallel "
             }
         }
         stage('Push'){
             steps{
-                sh "docker push philipl1/Fortune-app:latest"
+                sh "docker-compose push"
             }
         }
         stage('Run'){
             steps{
                 sh 'docker rm -f $(docker ps -qa)'
-                sh "docker run -d -p 80:5000 -e DATABASE_URI=$DATABASE_URI -e SECRET_KEY=$SECRET_KEY --name fortune-app philipl1/Fortune-app:latest"
+                sh "docker-compose up -d --build"
                 script{
-                    if (env.rebuild == 'false'){
-                        sh 'docker exec fortune-app python create.py'
+                    if (env.rebuild == 'true'){
+                        sh 'pip3 install -r service-1/requirements.txt '
+                        sh 'python3 service-1/create.py'
                         }
                     }    
             }
