@@ -4,6 +4,8 @@ pipeline{
         DATABASE_URI = credentials("DATABASE_URI")
         SECRET_KEY = credentials("SECRET_KEY")
         DOCKER_LOGIN = credentials("DOCKER_LOGIN")
+        rebuild_db = "true" 
+        install docker = "false"
     }
     stages{
         stage('Test'){
@@ -11,9 +13,10 @@ pipeline{
                 sh "bash jenkins/test.sh"
             }
         }
-        stage('Setup Docker')
-        steps {
-            sh 'bash jenkins/setup-docker.sh'
+        stage('Setup Docker'){
+            steps {
+                sh 'bash jenkins/setup-docker.sh'
+            }
         }
         stage('Build'){
             steps{
@@ -27,7 +30,13 @@ pipeline{
         }
         stage('Run'){
             steps{
+                sh 'docker rm -f $(docker ps -qa)'
                 sh "docker run -d -p 80:5000 -e DATABASE_URI=$DATABASE_URI -e SECRET_KEY=$SECRET_KEY --name fortune-app philipl1/Fortune-app:latest"
+                script{
+                    if (env.rebuild == 'false'){
+                        sh 'docker exec fortune-app python create.py'
+                        }
+                    }    
             }
         }
     }
@@ -35,8 +44,7 @@ pipeline{
         always {
              // publish junit and cobertura reports
              junit '**/*.xml'
-             cobertura coberturaReportFile: 'coverage.xml', failNoReports: false 
+             cobertura coberturaReportFile:'coverage.xml', failNoReports:false 
         }
-       
     }
 }
