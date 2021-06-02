@@ -4,7 +4,6 @@ pipeline{
         DATABASE_URI = credentials("DB_URI")  
         DOCKER_LOGIN = credentials("DOCKER_LOGIN")
         rebuild_db = "true" 
-        install docker = "false"
     }
     stages{
         stage('Test'){
