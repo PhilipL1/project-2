@@ -3,6 +3,8 @@ pipeline{
     environment {
         DATABASE_URI = credentials("DB_URI")  
         DOCKER_LOGIN = credentials("DOCKER_LOGIN")
+        username = credentials("USERNAME")
+        password = credentials("PASSWORD")
         rebuild_db = "true" 
     }
     stages{
@@ -19,6 +21,7 @@ pipeline{
         stage('Build'){
             steps{
                 sh "docker-compose build --parallel "
+                sh 'docker login -u${username} -p ${password}'
             }
         }
         stage('Push'){

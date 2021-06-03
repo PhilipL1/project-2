@@ -8,7 +8,6 @@ source venv/bin/activate
 #install pip requirements 
 pip3 install -r service-1/requirements.txt
 #run pytest
-#for loop
 python3 -m pytest service-1 --junitxml=junit/test-results.xml --cov=application --cov-report=xml --cov-report=html --cov-report term-missing
 python3 -m pytest service-2 --junitxml=junit/test-results.xml --cov=application --cov-report=xml --cov-report=html --cov-report term-missing
 python3 -m pytest service-3 --junitxml=junit/test-results.xml --cov=application --cov-report=xml --cov-report=html --cov-report term-missing

@@ -13,7 +13,3 @@ class TestHome(TestBase):
         response = self.client.post(url_for('get_fortune', day = "Tuesday(2021-06-01)", number = 10))
         self.assertEqual(response.data.decode(), "On Tuesday(2021-06-01) you will find nothing but peace & happiness")
 
-
-
-
-
