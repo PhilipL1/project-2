@@ -1,0 +1,50 @@
+- hosts: all 
+  become: true
+  roles:
+  - install-docker 
+
+- host: managers
+  become: true 
+  roles:
+  - swarm-manager
+
+- hosts: workers
+  become: true 
+  roles:
+  - swarm-worker 
+
+
+
+
+
+
+
+
+
+# - hosts: all
+#   become: true 
+#   tasks:
+#   - name: "Install dependencies"
+#   apt: 
+#   - name "install NGINX"
+#   apt:
+#     name: "nginx"
+#     state: present
+#     update_cache: true 
+#   - name: "Copy nginx.conf over"
+#     copy:
+#       src: nginc.conf
+#       dest: .etc/nginx/nginx.xonf
+#     register: nginx_config
+#   - name: "Print ngnix stuff"
+#     debug:
+#       msg: "{{ nginx_config }}"
+#   - name: "Restart nginx if needed"
+#     service:
+#       name: nginx 
+#       state: restarted
+#     when: nginx_config.changed == true 
+
+
+
+
