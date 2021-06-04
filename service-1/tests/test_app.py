@@ -5,8 +5,21 @@ from app import app
 
 class TestBase(TestCase):
     def create_app(self):
+        app.config.update(SQLALCHEMY_DATABASE_URI="sqlite:///test.db",
+        SECRET_KEY = 'SECRET_KEY',
+        WTF_CSRF_ENABLED = False,
+        DEBUG = True,
+        )
         return app
 
+    def setup(self):
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+        
 class TestHome(TestBase):
     def test_home(self):
         with requests_mock.Mocker() as mocker: 

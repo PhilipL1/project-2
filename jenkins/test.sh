@@ -4,6 +4,10 @@ sudo apt update
 
 sudo apt install python3 python3-pip python3-venv -y 
 python3 -m venv venv
+pip3 install requirements.txt
+export DB_URI
+export SECRET_KEY
+
 source venv/bin/activate
 #install pip requirements 
 pip3 install -r service-1/requirements.txt
