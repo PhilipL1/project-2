@@ -2,9 +2,12 @@ all:
   children: 
     managers:
       hosts:
-        host-1:
+      swarm-manager:
     workers:
       hosts:
-        host-2:
+        swarm-worker-fortune:
+    load_balance:
+    hosts:
+      load-balance:
   vars:
   ansible_python_interpreter: "/usr/bin/python3"

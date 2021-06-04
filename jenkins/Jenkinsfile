@@ -27,23 +27,23 @@ pipeline{
                 sh "docker-compose push"
             }
         }
-        stage('Run'){
+        stage('configuration'){
             steps{
-                sh 'docker rm -f $(docker ps -qa)'
-                sh "docker-compose up -d --build"
-                script{
-                    if (env.rebuild == 'true'){
-                        sh 'pip3 install -r service-1/requirements.txt'
-                        sh 'python3 service-1/create.py'
-                        }
-                    }    
+                sh "sudo apt install ansible -y"
+                sh "bash ansible.sh "
+                sh "ansible-playbook -i ./ansible/inventory.yaml /ansible/playbook.yaml"
+            }
+        }
+        stage('deploy'){
+            steps{
+                sh "bash deploy.sh"  
             }
         }
     }
     post{
         always {
              // publish junit and cobertura reports
-             junit '**/*.xml'
+             junit '**/*.xml' // "junit/*.xml"
              cobertura coberturaReportFile:'coverage.xml', failNoReports:false 
         }
     }

@@ -4,9 +4,16 @@
   docker_swarm:
     state: present 
 
-- name: "show swarm info" 
+- name: "Get info on Docker swarm" 
   docker_swarm_info:
   register: swarm_info
+
+- name: Add to docker group
+  user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: docker
+
+  
 
 # - name: "show info"
 #   debug:

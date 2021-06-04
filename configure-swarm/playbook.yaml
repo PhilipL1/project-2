@@ -1,4 +1,4 @@
-- hosts: all 
+- hosts: all
   become: true
   roles:
   - install-docker 
@@ -11,7 +11,13 @@
 - hosts: workers
   become: true 
   roles:
-  - swarm-worker 
+  - swarm-worker
+
+- hosts: load_balance
+  become: true 
+  roles:
+  - nginx 
+ 
 
 
 
