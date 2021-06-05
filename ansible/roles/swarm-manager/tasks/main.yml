@@ -3,9 +3,6 @@
 - name: "Init a new swarm" 
   docker_swarm:
     state: present 
-
-- name: "Get info on Docker swarm" 
-  docker_swarm_info:
   register: swarm_info
 
 - name: Add to docker group
