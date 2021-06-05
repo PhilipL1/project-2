@@ -6,24 +6,19 @@ apt:
   name: nginx
   state: present
   update_cache: true
-register: nginx_time
 
-- name: start nginx
-service:
-  name: nginx
-  state: started 
-
-#template file into machine 
+#template file into machine find nginx and put it here
 - name: Template a file to /etc/file.conf
-template:
-src: nginx.conf
-dest: /etc/nginx.conf
+  template:
+   src: nginx.conf
+   dest: /etc/nginx.conf
+  register: nginx_config
 
 #reload nginx
 - name: Restart nginx if needed 
   service:
     name: nginx
     state: restarted
-  when: nginx_config.changed == true 
+  when: nginx_config.changed
 
 
