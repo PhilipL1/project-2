@@ -1,7 +1,7 @@
 ---
 # tasks file for swarm-worker
 - name: Add worker to Swarm
-  docker-swarm:
+  docker_swarm:
     state: join 
     advertise_addr: swarm-worker-fortune # host-1
     join_token: "{{ hostvars['swarm-manager']['swarm_info']['swarm_facts']['JoinTokens']['Worker'] }}"
