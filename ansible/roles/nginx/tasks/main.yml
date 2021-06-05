@@ -1,11 +1,10 @@
 ---
 # tasks file for nginx
-
-name: install nginx
-apt:
-  name: nginx
-  state: present
-  update_cache: true
+- name: install nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: true
 
 #template file into machine find nginx and put it here
 - name: Template a file to /etc/file.conf
