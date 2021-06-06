@@ -123,6 +123,8 @@ Reloading NGINX with any changes to the nginx.conf file.
 ```
 Jenkins copies the docker-compose.yaml file over to the manager node, SSH's onto it, and then runs docker stack deploy
 ```
+<br/>
+
 The commands used in Jenkins' pipeline can be seen in the[ Jenkinsfile](https://github.com/PhilipL1/project-2/blob/test/jenkins/Jenkinsfile)
 <br/>
 
