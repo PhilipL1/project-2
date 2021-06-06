@@ -1,0 +1,49 @@
+pipeline{
+    agent any
+    environment {
+        DATABASE_URI = credentials("DB_URI")  
+        DOCKER_LOGIN = credentials("DOCKER_LOGIN")
+        rebuild_db = "true" 
+    }
+    stages{
+        stage('Test'){
+            steps{
+                sh "bash jenkins/test.sh"
+            }
+        }
+        stage('Setup Docker'){
+            steps {
+                sh 'bash jenkins/setup-docker.sh'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh "docker-compose build --parallel "
+            }
+        }
+        stage('Push'){
+            steps{
+                sh "docker login -u ${DOCKER_LOGIN_USR} -p ${DOCKER_LOGIN_PSW}"
+                sh "docker-compose push"
+            }
+        }
+        stage('ansible'){
+            steps{
+                sh "bash ansible.sh "
+                sh "ansible-playbook -i ansible/inventory.yaml ansible/playbook.yaml"
+            }
+        }
+        stage('deploy'){
+            steps{
+                sh "bash deploy.sh"  
+            }
+        }
+    }
+    post{
+        always {
+             // publish junit and cobertura reports
+             junit '**/*.xml' // "junit/*.xml"
+             cobertura coberturaReportFile:'coverage.xml', failNoReports:false 
+        }
+    }
+}

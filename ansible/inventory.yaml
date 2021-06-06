@@ -1,0 +1,13 @@
+all:  # all files 
+  children:  #multiple systems 
+    managers:
+      hosts:
+        swarm-manager:
+    workers:
+      hosts:
+        swarm-worker-fortune:
+    load_balance:
+      hosts:
+        nginx2:
+  vars:
+  ansible_python_interpreter: "/usr/bin/python3"

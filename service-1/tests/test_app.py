@@ -1,12 +1,23 @@
 from flask import url_for 
 from flask_testing import TestCase
 import requests_mock 
-from app import app
+from app import app, db
 
 class TestBase(TestCase):
     def create_app(self):
+        app.config.update(
+            SQLALCHEMY_DATABASE_URI="sqlite:///test.db"
+        )
         return app
 
+    def setUp(self):
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+        
 class TestHome(TestBase):
     def test_home(self):
         with requests_mock.Mocker() as mocker: 
