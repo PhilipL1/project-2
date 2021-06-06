@@ -14,7 +14,7 @@ class TestHome(TestBase):
             response = self.client.get(url_for('get_day'))
             day,year,month,date = re.findall("(\S+)\((\d{4})-(\d{2})-(\d{2})\)", response.data.decode())[0]
             self.assertIn(day, {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"})
-            self.assertEqual(year, "2021")
+            self.assertEqual(year, "2022")
             self.assertIn(month,{"06", "07"})
             self.assertIn(int(date), range(0, 31))
 

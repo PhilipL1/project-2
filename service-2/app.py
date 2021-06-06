@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = getenv("DATABASE_URI")
 # animal generator route here
 @app.route('/get_number',methods=['GET'])
 def get_number():
-    result = {'number':random.randint(0, 10)}
+    result = {'number':random.randint(10, 20)}
     return jsonify(result)
 
 if __name__ == "__main__":

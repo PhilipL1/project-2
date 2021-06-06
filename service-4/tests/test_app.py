@@ -10,6 +10,6 @@ class TestBase(TestCase):
 
 class TestHome(TestBase):
     def test_get_fortune(self):
-        response = self.client.post(url_for('get_fortune', day = "Tuesday(2021-06-01)", number = 10))
-        self.assertEqual(response.data.decode(), "On Tuesday(2021-06-01) you will find nothing but peace & happiness")
+        response = self.client.post(url_for('get_fortune', day = "Friday(2022-06-03)", number = 20))
+        self.assertEqual(response.data.decode(), "On Friday(2022-06-03) you will find nothing but peace & happiness")
 
