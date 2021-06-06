@@ -11,8 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = getenv("DATABASE_URI")
 
 @app.route('/get_day',methods=['GET'])
 def get_day():
-    start_date = datetime.date(2021, 6, 1)
-    end_date = datetime.date(2021, 7, 1)
+    start_date = datetime.date(2022, 6, 1)
+    end_date = datetime.date(2022, 7, 1)
 
     time_between_dates = end_date - start_date
     days_between_dates = time_between_dates.days

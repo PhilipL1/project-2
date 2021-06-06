@@ -11,13 +11,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = getenv("DATABASE_URI")
 
 @app.route('/get_fortune/<day>/<int:number>', methods=['POST'])
 def get_fortune(day, number):
-    if number == 0:
+    if number == 10:
         return f"On {day} you loose you're house and fiance, Sorry about that!"
-    elif number <= 3 :
+    elif number <= 13 :
         return f"On {day}  you will win £300 from the lottery, that's it sorry!"
-    elif number <= 6:
+    elif number <= 16:
         return f"On {day} you will recieve unlimited food, Love dat!"
-    elif number <= 9:
+    elif number <= 19:
             return f"On {day} you will becomone a millionaire, lucky you!!"
     else :
         return f"On {day} you will find nothing but peace & happiness"
