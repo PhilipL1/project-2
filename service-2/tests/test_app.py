@@ -11,6 +11,6 @@ class TestHome(TestBase):
     def test_get_number(self):
         for _ in range(20):
             response = self.client.get(url_for('get_number'))
-            self.assertIn(response.json['number'], range(0, 11))
+            self.assertIn(response.json['number'], range(10, 21))
 
 

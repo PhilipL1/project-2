@@ -142,6 +142,7 @@ The commands used in Jenkins' pipeline can be seen in the[ Jenkinsfile](https://
 ![pipeline image](https://i.imgur.com/qKtGg9A.png)
 
 ## Entity Diagram 
+
 The project database only has one table which is shown below. Outlining the elements in a table means that the validation required for each element is outlined explicitly, and can be tested accordingly. The results of the fortune is stored in the SQL database available upon request. The front end application displays the end-user's last 3 Fortunes which are taken from the database.  
 <br/>
 
