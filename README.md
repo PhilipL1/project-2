@@ -3,6 +3,7 @@
 * [Introduction](#introduction) 
   * [Objective](#objective)
   * [Proposal](#proposal)
+  * [The 4 Services](#The-4-Services)
 * [Architecture](#architecture)
   * [Risk Assessment](#Risk-Assessment)
   * [Project Management](#Project-Management)
@@ -12,7 +13,6 @@
   * [Jenkins](#Jenkins)
   * [Entity Diagram](#Entity-Diagram)
   * [Docker Swarm](#Interactions-Diagram)
-  * [The 4 Services](#The-4-Services)
 * [Development](#development)
   * [Unit Testing](#Unit-Testing)
   * [Front-End Design](#Front-End)
@@ -47,6 +47,17 @@ To meet all of the requirements and to ensure the MVP was produced in the time-f
 * Service 2: returns a random number for the fortune. 
 * Service 3: a random date from a given range is formed. The day of that random date is then calculated. The date and day is then returned.
 * Service 4: returns a fortune is generated based on the random number. The date and day that the fortune will take place will also be returned.
+
+ ## The 4 Services
+ The diagram below shows how the services interact with one another. 
+ <br/>
+ ![services](https://i.imgur.com/ho2SPg1.png)
+ Summary
+ * The front-end sends GET requests to API-1 and API-2
+ * API-1 & API-2 sends their response to API-3 as a POST request 
+ * API-3 returns the appropriate information to the front end as a POST request 
+ * The front-end can send requests to the MySQL instance to INSERT the new entry and SELECT the old entries in order to display a history to the user as required.
+ <br/>
 
 # Architecture
 ## Risk Assessment
@@ -131,8 +142,9 @@ The commands used in Jenkins' pipeline can be seen in the[ Jenkinsfile](https://
 ![pipeline image](https://i.imgur.com/qKtGg9A.png)
 
 ## Entity Diagram 
-The project database only has one table which is shown below. Outlining the elements in a table means that the validation required for each element is outlined explicitly, and can be tested accordingly. The results of the fortune is stored in the SQL database, so if the end-user previous Fortune it is available upon request.  
+The project database only has one table which is shown below. Outlining the elements in a table means that the validation required for each element is outlined explicitly, and can be tested accordingly. The results of the fortune is stored in the SQL database available upon request. The front end application displays the end-user's last 3 Fortunes which are taken from the database.  
 <br/>
+
 ![Entity Diagram image](https://i.imgur.com/4FlhZgg.png)
 
 ## Interactions Diagram
@@ -145,17 +157,6 @@ Using an orchestration tool (ansible), Docker Swarm. software developers are abl
 <br/>
 Anonther layer has been added to the system in a form of an NGINX load-balancer which  up-streams the user to the VM with the least connections. By adding this layer, the efficiency of the application improves as well as security as end-users have another stage in the application.
 <br/>
-
- ## The 4 Services
- The diagram below shows how the services interact with one another. 
- <br/>
- ![services](https://i.imgur.com/ho2SPg1.png)
- Summary
- * The front-end sends GET requests to API-1 and API-2
- * API-1 & API-2 sends their response to API-3 as a POST request 
- * API-3 returns the appropriate information to the front end as a POST request 
- * The front-end can send requests to the MySQL instance to INSERT the new entry and SELECT the old entries in order to display a history to the user as required.
- <br/>
 
  ## Development
  ### Front-End 
