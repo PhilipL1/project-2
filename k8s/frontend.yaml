@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fortune-server
+spec:
+  selector:
+    app: fortune-server
+  ports: 
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortune-server
+  labels: 
+    app: fortune-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortune-server
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25% # how many containers can be spun up at a given time 
+      maxUnavailable: 25% # how many of the containers can be brought down at a given down 
+  template:
+    metadata:
+      labels:
+        app: fortune-server
+    spec:
+      containers:
+      - name: fortune-server
+        image: philipl1/fortune-server:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: fortune-server
+              key: secretKey
+        - name: DATABASE_URI
+          valueFrom:
+            secretKeyRef:
+              name: fortune-server
+              key: databaseURI
+
+              
+        # resources:
+        #   requests:
+        #     memory: "64Mi"
+        #     cpu: "250m"
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"

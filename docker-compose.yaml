@@ -1,8 +1,8 @@
 version: "3.8"
 services:
   server: 
-    container_name: fortune_server
-    image: philipl1/fortune_server # -t 
+    container_name: fortune-server
+    image: philipl1/fortune-server # -t 
     build: ./service-1
     # deploy:
     #   replicas: 5
@@ -13,16 +13,16 @@ services:
     environment: 
       DATABASE_URI: ${DATABASE_URI}
   day_api:
-    container_name: day_api
-    image: philipl1/day_api
+    container_name: day-api
+    image: philipl1/day-api
     build: ./service-3
   number_api: 
-    container_name: number_api
-    image: philipl1/number_api
+    container_name: number-api
+    image: philipl1/number-api
     build: ./service-2
   fortune_api: 
-    container_name: fortune_api
-    image: philipl1/fortune_api
+    container_name: fortune-api
+    image: philipl1/fortune-api
     build: ./service-4
     # deploy:
     #   replicas: 5

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: day-api
+spec:
+  selector:
+    app: day-api
+  ports: 
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: day-api
+  labels: 
+    app: day-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: day-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25% 
+  template:
+    metadata:
+      labels:
+        app: day-api
+    spec:
+      containers:
+      - name: day-api
+        image: philipl1/day-api:latest
+        ports:
+        - containerPort: 5000
+        # resources:
+        #   requests:
+        #     memory: "64Mi"
+        #     cpu: "250m"
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
