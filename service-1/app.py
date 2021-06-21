@@ -18,9 +18,9 @@ class Fortunes(db.Model):
 @app.route('/')
 @app.route("/home")
 def home():
-    number = requests.get('http://number_api:5000/get_number').json()['number']
-    day = requests.get('http://day_api:5000/get_day')
-    fortune = requests.post(f'http://fortune_api:5000/get_fortune/{day.text}/{number}')
+    number = requests.get('http://number-api:5000/get_number').json()['number']
+    day = requests.get('http://day-api:5000/get_day')
+    fortune = requests.post(f'http://fortune-api:5000/get_fortune/{day.text}/{number}')
 
 
     
